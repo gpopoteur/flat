@@ -1,0 +1,20 @@
+{
+    "name": "gpopoteur/flat",
+    "description": "",
+    "authors": [
+        {
+            "name": "German Popoter",
+            "email": "mail@gpopoteur.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "GPopoteur\\Flat": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
