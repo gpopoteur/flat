@@ -44,7 +44,7 @@ To change the Tenant programatically you can call the `moveIn($name)` method of 
 
     $flat->moveIn('new-tenant');
 
-There is a middleware implemented called `flatCheckIn`, basically what it does is to take the name of the variable `flatName` and move change the user to that Schema.
+There is a middleware implemented called `flatCheckIn`, basically what it does is to take the name of the variable `flatName` and change the user to that Schema.
 
 Example:
 
