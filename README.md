@@ -8,11 +8,11 @@ Laravel 5 package for creating multi-tenant apps. As of right now only Postgresq
 
 Install via composer with the command:
 
-    composer install gpopoteur/flat
+    composer require gpopoteur/flat
 
 Then register the provider in the `config/app.php` file:
 
-    'GPopoteur\Flat\FlatServiceProvider'
+    'GPopoteur\Flat\FlatServiceProvider',
 
 After that you can start using the `Flat` API! :)
 
