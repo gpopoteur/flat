@@ -1,6 +1,9 @@
 {
     "name": "gpopoteur/flat",
-    "description": "",
+    "description": "Laravel 5 package for creating multi-tenant apps.",
+    "keywords": ["saas","multi-tenant", "multi tenant", "tenant", "database"],
+    "homepage": "https://github.com/gpopoteur/flat",
+    "license": "MIT",
     "authors": [
         {
             "name": "German Popoter",
