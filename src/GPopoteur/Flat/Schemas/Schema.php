@@ -30,29 +30,35 @@ abstract class Schema
      * @param $name
      * @return mixed
      */
-    public function create($name)
-    {
-        return $this->db->statement("CREATE SCHEMA {$name}");
-    }
+    abstract public function create($name);
 
     /**
      * @param string $name
      * @return mixed
      */
-    public function switchSchema($name = 'public')
-    {
-        $this->currentSchema = $name;
-        return $this->db->statement("SET search_path TO {$name}");
-    }
+    abstract public function switchSchema($name = 'public');
 
     /**
      * @param $name
      * @return mixed
      */
-    public function drop($name)
-    {
-        return $this->db->statement("DROP SCHEMA {$name}");
-    }
+    abstract public function drop($name);
+
+    /**
+     * Determines if the Schema has a specific table
+     *
+     * @param $tableName
+     * @return mixed
+     */
+    abstract protected function hasTable($tableName);
+
+    /**
+     * Determines if the Schema exists
+     *
+     * @param $flat
+     * @return mixed
+     */
+    abstract public function exists($flat);
 
     /**
      * @param array $args
@@ -92,21 +98,5 @@ abstract class Schema
     {
         return $this->artisan->call('migrate:rollback', $args);
     }
-
-    /**
-     * Determines if the Schema has a specific table
-     *
-     * @param $tableName
-     * @return mixed
-     */
-    abstract protected function hasTable($tableName);
-
-    /**
-     * Determines if the Schema exists
-     *
-     * @param $flat
-     * @return mixed
-     */
-    abstract public function exists($schema);
 
 }
