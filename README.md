@@ -16,7 +16,33 @@ Then register the provider in the `config/app.php` file:
 
 After that you can start using the `Flat` API! :)
 
+## Usage
+
+You can inject the dependency with Laravel IoC container:
+
+    public function __contruct(Flat $flat){
+        // business logic
+    }
+
+Or just let the `App::make()` resolve the class.
+
+    $flat = App::make('GPopoteur\Flat\Flat');
+
+### Creating a new Flat
+
+To create a new Flat (Tenant), just call the `build($name)` method of the `Flat` class passing the new Tenant name.
+
+    $flat->build('new-tenant');
+
+After you create a new tenant, the new Schema is not automatically migrated, to run the migrations just run:
+
+    $flat->migrate(['new-tenant']);
+
 ## Changing Flats (Tenants)
+
+To change the Tenant programatically you can call the `moveIn($name)` method of the `Flat` API.
+
+    $flat->moveIn('new-tenant');
 
 There is a middleware implemented called `flatCheckIn`, basically what it does is to take the name of the variable `flatName` and move change the user to that Schema.
 
