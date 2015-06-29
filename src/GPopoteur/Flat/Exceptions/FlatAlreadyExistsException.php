@@ -1,5 +1,9 @@
-<?php namespace GPopoteur\Flat\Exceptions;
+<?php 
+
+namespace GPopoteur\Flat\Exceptions;
 
 use Exception;
 
-class FlatAlreadyExistsException extends Exception { }
+class FlatAlreadyExistsException extends Exception
+{
+}

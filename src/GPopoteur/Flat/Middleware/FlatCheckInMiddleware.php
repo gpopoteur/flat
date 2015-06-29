@@ -1,11 +1,12 @@
-<?php namespace GPopoteur\Flat\Middleware;
+<?php 
+
+namespace GPopoteur\Flat\Middleware;
 
 use Closure;
 use GPopoteur\Flat\Contract\Flat;
 
-
-class FlatCheckInMiddleware {
-
+class FlatCheckInMiddleware
+{
     /**
      * @var Flat
      */
@@ -28,12 +29,12 @@ class FlatCheckInMiddleware {
         $flatName = $request->route('flatName');
 
         // Check if flat exists and try to move in
-        if( ! $this->flat->moveIn($flatName)){
+        if (! $this->flat->moveIn($flatName)) {
             // if fails, redirect
-            return redirect(env('APP_URL'));
+            $config = config('services.flat') ;
+            return redirect(env('FLAT_NOT_FOUND') ?: env('APP_URL'));
         }
 
         return $next($request);
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace GPopoteur\Flat\Schemas;
+<?php 
+
+namespace GPopoteur\Flat\Schemas;
 
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\DatabaseManager;
@@ -98,5 +100,4 @@ abstract class Schema
     {
         return $this->artisan->call('migrate:rollback', $args);
     }
-
 }
