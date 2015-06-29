@@ -1,4 +1,6 @@
-<?php namespace GPopoteur\Flat\Schemas;
+<?php 
+
+namespace GPopoteur\Flat\Schemas;
 
 class PostgresSchema extends Schema
 {
@@ -31,7 +33,6 @@ class PostgresSchema extends Schema
     public function exists($schema)
     {
         try {
-
             $count = count(
                 $this->db->select("SELECT schema_name FROM information_schema.schemata WHERE schema_name = '{$schema}';")
             );
