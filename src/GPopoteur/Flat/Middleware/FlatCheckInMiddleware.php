@@ -4,6 +4,7 @@ namespace GPopoteur\Flat\Middleware;
 
 use Closure;
 use GPopoteur\Flat\Contract\Flat;
+use GPopoteur\Flat\Exceptions\FlatDoesntExistsException;
 
 class FlatCheckInMiddleware
 {
@@ -30,9 +31,8 @@ class FlatCheckInMiddleware
 
         // Check if flat exists and try to move in
         if (! $this->flat->moveIn($flatName)) {
-            // if fails, redirect
-            $config = config('services.flat') ;
-            return redirect(env('FLAT_NOT_FOUND') ?: env('APP_URL'));
+            // if fails, throw exception
+            new FlatDoesntExistsException('Flat ' . $flatName . ' doesn\'t exists');
         }
 
         return $next($request);
