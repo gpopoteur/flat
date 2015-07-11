@@ -58,7 +58,7 @@ abstract class Schema
      * Determines if the Schema exists
      *
      * @param $flat
-     * @return mixed
+     * @return bool
      */
     abstract public function exists($flat);
 

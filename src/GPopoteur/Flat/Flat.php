@@ -33,6 +33,10 @@ class Flat implements FlatInterface
      */
     public function migrate($flats = [])
     {
+        if( ! is_array($flats)){
+            $flats = [$flats];
+        }
+
         foreach ($flats as $flat) {
             if ($this->schema->switchSchema($flat)) {
                 $this->schema->migrate();

@@ -28,7 +28,7 @@ class PostgresSchema extends Schema
      * Determines if the Schema exists
      *
      * @param $schema
-     * @return mixed
+     * @return bool
      */
     public function exists($schema)
     {

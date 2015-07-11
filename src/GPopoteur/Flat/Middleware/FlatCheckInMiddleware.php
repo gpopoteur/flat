@@ -32,7 +32,7 @@ class FlatCheckInMiddleware
         // Check if flat exists and try to move in
         if (! $this->flat->moveIn($flatName)) {
             // if fails, throw exception
-            new FlatDoesntExistsException('Flat ' . $flatName . ' doesn\'t exists');
+            throw new FlatDoesntExistsException('Flat \'' . $flatName . '\' doesn\'t exists');
         }
 
         return $next($request);
