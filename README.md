@@ -36,7 +36,11 @@ To create a new Flat (Tenant), just call the `build($name)` method of the `Flat`
 
 After you create a new tenant, the new Schema is not automatically migrated, to run the migrations just run:
 
-    $flat->migrate(['new-tenant']);
+    $flat->migrate('new-tenant');
+
+or, if migrating several tenants at once, pass an array with the tenants names:
+
+    $flat->migrate(['new-tenant', 'other-tenant', 'and-another']);
 
 ## Changing Flats (Tenants)
 
@@ -67,6 +71,8 @@ Because the `flatName` variable is assigned in the route, you can add that varia
         // everything inside this closure will be done in the `flatName` schema.
 
     });
+
+When using the provided Middlewares, if a tenant doesn't exists the middleware will throw a new `FlatDoesntExistsException` that you can catch globally in the app and then redirect the user somewhere and show then a nice error message.
 
 ### Contributing
 
