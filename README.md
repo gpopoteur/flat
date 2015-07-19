@@ -48,7 +48,13 @@ To change the Tenant programatically you can call the `moveIn($name)` method of 
 
     $flat->moveIn('new-tenant');
 
-There is a middleware implemented called `flatCheckIn`, basically what it does is to take the name of the variable `flatName` and change the user to that Schema.
+There is a middleware implemented called `FlatCheckInMiddleware`, basically what it does is to take the name of the variable `flatName` and change the user to that Schema.
+
+To register this middleware you need to add the following line to the `$routeMiddleware` variable in the `app/Http/Kernel.php` file:
+
+    'flatCheckIn' => 'GPopoteur\Flat\Middleware\FlatCheckInMiddleware'
+
+and you should be ready to go.
 
 Example:
 
