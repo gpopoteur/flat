@@ -57,7 +57,6 @@ class FlatServiceProvider extends ServiceProvider
         $storage    = $app['files'];
         $config     = $app['config'];
 
-        $driver = 'sqlite';
         switch ($driver) {
             case 'pgsql':
                 return new PostgresSchema($database, $artisan);
