@@ -16,6 +16,8 @@ Then register the provider in the `config/app.php` file:
 
 After that you can start using the `Flat` API! :)
 
+The Database driver used by `flat` will be the same one specified in `config/database.php`, meaning the same that you are using for your application.
+
 ## Usage
 
 You can inject the dependency with Laravel IoC container:
