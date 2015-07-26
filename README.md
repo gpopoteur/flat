@@ -2,7 +2,7 @@
 
 ***WORK IN PROGRESS!!***
 
-Laravel 5 package for creating multi-tenant apps. As of right now only Postgresql Schemas are supported.
+Laravel 5 package for creating multi-tenant apps. As of right now only Postgresql Schemas and SQLite Databases are supported.
 
 ## Install
 
