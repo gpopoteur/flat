@@ -2,7 +2,9 @@
 
 namespace GPopoteur\Flat;
 
-use GPopoteur\Flat\Middleware\FlatCheckInMiddleware;
+use GPopoteur\Flat\Schemas\PostgresSchema;
+use GPopoteur\Flat\Schemas\Schema;
+use GPopoteur\Flat\Schemas\SqliteSchema;
 use Illuminate\Support\ServiceProvider;
 
 class FlatServiceProvider extends ServiceProvider
@@ -21,8 +23,12 @@ class FlatServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $schemaManager = $this->getSchemaManager($this->app);
+
         $this->app->bind('GPopoteur\Flat\Contract\Flat', 'GPopoteur\Flat\Flat');
-        $this->app->bind('GPopoteur\Flat\Schemas\Schema', 'GPopoteur\Flat\Schemas\PostgresSchema');
+        $this->app->bind('GPopoteur\Flat\Schemas\Schema', function($app) use ($schemaManager) {
+            return $schemaManager;
+        });
     }
 
     /**
@@ -35,5 +41,32 @@ class FlatServiceProvider extends ServiceProvider
         return [
             'GPopoteur\Flat\Flat'
         ];
+    }
+
+    /**
+     * Returns the Flat Schema Manager
+     *
+     * @param $app
+     * @return Schema
+     */
+    private function getSchemaManager($app)
+    {
+        $database   = $app['db'];
+        $artisan    = $app['Illuminate\Contracts\Console\Kernel'];
+        $driver     = $app['config']['database']['default'];
+        $storage    = $app['files'];
+        $config     = $app['config'];
+
+        $driver = 'sqlite';
+        switch ($driver) {
+            case 'pgsql':
+                return new PostgresSchema($database, $artisan);
+
+            case 'sqlite':
+                $sqliteSchema = new SqliteSchema($database, $artisan);
+                $sqliteSchema->setStorage($storage);
+                $sqliteSchema->setConfig($config);
+                return $sqliteSchema;
+        }
     }
 }

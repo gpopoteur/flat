@@ -2,8 +2,9 @@
 
 namespace GPopoteur\Flat\Schemas;
 
-use Illuminate\Contracts\Console\Kernel;
+
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Contracts\Console\Kernel as Artisan;
 
 abstract class Schema
 {
@@ -22,7 +23,7 @@ abstract class Schema
      */
     protected $currentSchema;
 
-    public function __construct(DatabaseManager $db, Kernel $artisan)
+    public function __construct(DatabaseManager $db, Artisan $artisan)
     {
         $this->db = $db;
         $this->artisan = $artisan;
@@ -68,7 +69,7 @@ abstract class Schema
      */
     public function migrate($args = [])
     {
-        if (!$this->hasTable('migrations')) {
+        if ( ! $this->hasTable('migrations')) {
             $this->artisan->call('migrate:install');
         }
         return $this->artisan->call('migrate', $args);

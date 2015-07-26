@@ -21,6 +21,7 @@ interface Flat
      * Creates a new Schema or Database
      * @param  string $flat Flat name
      * @return mixed
+     * @throws FlatAlreadyExistsException
      */
     public function build($flat);
 

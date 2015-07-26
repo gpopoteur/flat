@@ -17,7 +17,7 @@ class Flat implements FlatInterface
     /**
      * @var array
      */
-    private $reserved = ['public'];
+    protected $reserved = ['public'];
 
     /**
      * @param Schema $schema
@@ -33,6 +33,8 @@ class Flat implements FlatInterface
      */
     public function migrate($flats = [])
     {
+        // If a single string was passed
+        // wrap it inside of an array
         if( ! is_array($flats)){
             $flats = [$flats];
         }
@@ -62,6 +64,7 @@ class Flat implements FlatInterface
      * Creates a new Schema or Database
      * @param  string $flat Flat name
      * @return mixed
+     * @throws FlatAlreadyExistsException
      */
     public function build($flat)
     {
