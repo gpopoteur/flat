@@ -12,7 +12,9 @@ Install via composer with the command:
 
 Then register the provider in the `config/app.php` file:
 
+```php
     'GPopoteur\Flat\FlatServiceProvider',
+```
 
 After that you can start using the `Flat` API! :)
 
@@ -22,39 +24,53 @@ The Database driver used by `flat` will be the same one specified in `config/dat
 
 You can inject the dependency with Laravel IoC container:
 
+```php
     public function __contruct(Flat $flat){
         // business logic
     }
+```
 
 Or just let the `App::make()` resolve the class.
 
+```php
     $flat = App::make('GPopoteur\Flat\Flat');
+```
 
 ### Creating a new Flat
 
 To create a new Flat (Tenant), just call the `build($name)` method of the `Flat` class passing the new Tenant name.
 
+```php
     $flat->build('new-tenant');
+```
 
 After you create a new tenant, the new Schema is not automatically migrated, to run the migrations just run:
 
+```php
     $flat->migrate('new-tenant');
+```
 
 or, if migrating several tenants at once, pass an array with the tenants names:
 
+```php
     $flat->migrate(['new-tenant', 'other-tenant', 'and-another']);
+```
 
 ## Changing Flats (Tenants)
 
 To change the Tenant programatically you can call the `moveIn($name)` method of the `Flat` API.
 
+```php
     $flat->moveIn('new-tenant');
+```
 
 There is a middleware implemented called `FlatCheckInMiddleware`, basically what it does is to take the name of the variable `flatName` and change the user to that Schema.
 
 To register this middleware you need to add the following line to the `$routeMiddleware` variable in the `app/Http/Kernel.php` file:
 
+```php
     'flatCheckIn' => 'GPopoteur\Flat\Middleware\FlatCheckInMiddleware'
+```
 
 and you should be ready to go.
 
@@ -64,21 +80,25 @@ Example:
 
 To be able to do a subdomain tenant, just add a `flatName` variable and the `flatCheckIn` middleware to your domain route group.
 
+```php
     Route::group(['domain' => '{flatName}.domain.com', 'middleware' => 'flatCheckIn'], function(){
 
         // everything inside this closure will be done in the `flatName` schema.
 
     });
+```
 
 ### Route name tenant
 
 Because the `flatName` variable is assigned in the route, you can add that variable to any route group that fits your need, example:
 
+```php
     Route::group(['prefix' => 'account/{flatName}', 'middleware' => 'flatCheckIn'], function(){
 
         // everything inside this closure will be done in the `flatName` schema.
 
     });
+```
 
 When using the provided Middlewares, if a tenant doesn't exists the middleware will throw a new `FlatDoesntExistsException` that you can catch globally in the app and then redirect the user somewhere and show then a nice error message.
 
